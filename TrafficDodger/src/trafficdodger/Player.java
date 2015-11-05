@@ -31,11 +31,14 @@ public class Player extends Rectangle {
         lives = 3;
         width = zwidth;
         height = zheight;
+        
+        loadimage();
+        
     }
     
     void loadimage(){
         try{
-          image1 = ImageIO.read(new File("/src/images"));
+          image1 = ImageIO.read(new File("trafficdodger.images/playerCar.png"));
         }
         
         catch(IOException e){
@@ -63,7 +66,7 @@ public class Player extends Rectangle {
     }
     
     public void draw(Graphics g){
-        g.fillRect(x, y, width, height);
+        g.drawImage(image1, 0, 0, null);
        
     }
 }
