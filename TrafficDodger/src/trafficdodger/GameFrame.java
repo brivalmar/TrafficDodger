@@ -15,6 +15,7 @@ public class GameFrame extends JFrame {
     
     
     public GameFrame(){
+        //builds the frame
         super("Traffic Dodger");
         
         this.setSize(500, 700);

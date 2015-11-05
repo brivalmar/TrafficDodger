@@ -15,6 +15,7 @@ public class TrafficDodger {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //initiates a new Frame
         GameFrame gameFrame = new GameFrame();
     }
     
