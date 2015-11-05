@@ -38,7 +38,7 @@ public class Player extends Rectangle {
     
     void loadimage(){
         try{
-          image1 = ImageIO.read(new File("trafficdodger.images/playerCar.png"));
+          image1 = ImageIO.read(new File("src/trafficdodger/images/playerCar.png"));
         }
         
         catch(IOException e){
@@ -48,13 +48,16 @@ public class Player extends Rectangle {
     }
     
     
-    public int getx() {
+    public int getxpos() {
         return x;
     }
 
-    public int gety() {
+    public int getypos() {
         return y;
 
+    }
+    public void setxpos(int a){
+        x += a;
     }
 
     public int getwidth() {
@@ -66,7 +69,7 @@ public class Player extends Rectangle {
     }
     
     public void draw(Graphics g){
-        g.drawImage(image1, 0, 0, null);
+        g.drawImage(image1, x, y, null);
        
     }
 }
