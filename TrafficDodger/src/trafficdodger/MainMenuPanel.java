@@ -6,6 +6,7 @@
 package trafficdodger;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 /**
@@ -14,8 +15,8 @@ import javax.swing.*;
  */
 public class MainMenuPanel extends JPanel{
     
-    private JButton playButton;
-    private JButton quitButton;
+    protected static JButton playButton;
+    protected static JButton quitButton;
     
     private JLabel usernameLabel;
     private JTextField usernameField;
@@ -23,9 +24,10 @@ public class MainMenuPanel extends JPanel{
     private JLabel highScoreLabel;
     private JTextArea highScoreArea;
     
+    
+    
     public MainMenuPanel(){
-        playButton = new JButton("Play");
-        quitButton = new JButton("Quit");
+        createButtons();
         
         usernameLabel = new JLabel("Username: ");
         usernameField = new JTextField(20);
@@ -41,5 +43,15 @@ public class MainMenuPanel extends JPanel{
         this.add(highScoreArea);
         
     }
+    
+    public void createButtons(){
+        playButton = new JButton("Play");
+       // playButton.addActionListener();
+        
+        quitButton = new JButton("Quit");
+       // quitButton.addActionListener();
+    }
+    
+
     
 }
