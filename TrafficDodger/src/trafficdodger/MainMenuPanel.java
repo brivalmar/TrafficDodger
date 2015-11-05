@@ -15,8 +15,8 @@ import javax.swing.*;
  */
 public class MainMenuPanel extends JPanel{
     
-    protected static JButton playButton;
-    protected static JButton quitButton;
+    private JButton playButton;
+    private JButton quitButton;
     
     private JLabel usernameLabel;
     private JTextField usernameField;
@@ -50,6 +50,14 @@ public class MainMenuPanel extends JPanel{
         
         quitButton = new JButton("Quit");
        // quitButton.addActionListener();
+    }
+    
+    public JButton getPlayButton(){
+        return playButton;
+    }
+    
+    public JButton getQuitButton(){
+        return quitButton;
     }
     
 

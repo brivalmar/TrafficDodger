@@ -24,15 +24,16 @@ public class JPanelController extends JPanel implements ActionListener{
         mainMenu = new MainMenuPanel();
         this.setLayout(new BorderLayout());
         this.add(CENTER, mainMenu);
-        
+        mainMenu.getPlayButton().addActionListener(this);
+        mainMenu.getQuitButton().addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == MainMenuPanel.playButton){
+        if(e.getSource() == mainMenu.getPlayButton()){
             System.out.println("Hello world.");
         }
-        if(e.getSource() == MainMenuPanel.quitButton){
+        if(e.getSource() == mainMenu.getQuitButton()){
             System.out.println(" world.");
 
         }
