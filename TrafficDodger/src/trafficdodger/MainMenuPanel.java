@@ -15,6 +15,7 @@ import javax.swing.*;
  */
 public class MainMenuPanel extends JPanel{
     
+    //calls initial variables for Panel
     private JButton playButton;
     private JButton quitButton;
     
@@ -29,12 +30,14 @@ public class MainMenuPanel extends JPanel{
     public MainMenuPanel(){
         createButtons();
         
+        //initializes variables
         usernameLabel = new JLabel("Username: ");
         usernameField = new JTextField(20);
         
         highScoreLabel = new JLabel("Highscores: ");
         highScoreArea = new JTextArea(20,50);
                 
+        //adds objects to Panel
         this.add(playButton);
         this.add(quitButton);
         this.add(usernameLabel);
@@ -45,16 +48,19 @@ public class MainMenuPanel extends JPanel{
     }
     
     public void createButtons(){
+        //creates buttons
         playButton = new JButton("Play");
         
         quitButton = new JButton("Quit");
     }
     
     public JButton getPlayButton(){
+        //button is private; used for actionlister in JPanelController
         return playButton;
     }
     
     public JButton getQuitButton(){
+        //button is private; used for actionlister in JPanelController
         return quitButton;
     }
     

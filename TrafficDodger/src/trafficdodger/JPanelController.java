@@ -20,12 +20,17 @@ public class JPanelController extends JPanel implements ActionListener{
     private GameScreenPanel gameScreen;
     
     public JPanelController(){
-        
+        //creates new Panels to show
         gameScreen = new GameScreenPanel();
-        
         mainMenu = new MainMenuPanel();
+        
+       
         this.setLayout(new BorderLayout());
+        
+        //adds mainMenu Panel to JPanelController
         this.add(CENTER, mainMenu);
+        
+        //Adds listeners to JButtons
         mainMenu.getPlayButton().addActionListener(this);
         mainMenu.getQuitButton().addActionListener(this);
         
@@ -34,15 +39,14 @@ public class JPanelController extends JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
+        //decisions for button clicked
         if(e.getSource() == mainMenu.getPlayButton()){
-            System.out.println("hey baby");
             mainMenu.setVisible(false);
             this.add(gameScreen);
-            //gameScreen = new GameScreenPanel();
         }
         
         if(e.getSource() == mainMenu.getQuitButton()){
-            System.out.println(" world.");
             System.exit(0);
 
         }
