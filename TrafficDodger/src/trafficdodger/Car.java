@@ -24,7 +24,18 @@ public class Car extends Rectangle {
         loadimage();
     }
 
-     
+    public int getx(){
+        return x;
+    }
+    
+    public int gety(){
+        return y;
+    }
+    
+    public void move(){
+        y = y + 10;
+    }
+    
     void loadimage() {
         String temp;
         int rng = (int) (Math.random() * 5);
@@ -48,7 +59,7 @@ public class Car extends Rectangle {
     }
 
     public void draw(Graphics g) {
-        g.drawImage(image, 0, 0, null);
+        g.drawImage(image, x, y, null);
 
     }
 }
