@@ -15,9 +15,11 @@ import javax.swing.*;
  * @author sdt5106
  */
 public class GameScreenPanel extends JPanel{
-    Car car;
-    Player player;
-    JButton x;
+    private Car car;
+    private Player player;
+    private JButton x;
+    
+    
     GameScreenPanel()
     {
         super();

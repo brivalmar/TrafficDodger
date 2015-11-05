@@ -17,24 +17,33 @@ import javax.swing.*;
 public class JPanelController extends JPanel implements ActionListener{
     
     private MainMenuPanel mainMenu;
-    
+    private GameScreenPanel gameScreen;
     
     public JPanelController(){
+        
+        gameScreen = new GameScreenPanel();
         
         mainMenu = new MainMenuPanel();
         this.setLayout(new BorderLayout());
         this.add(CENTER, mainMenu);
         mainMenu.getPlayButton().addActionListener(this);
         mainMenu.getQuitButton().addActionListener(this);
+        
+        
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == mainMenu.getPlayButton()){
-            System.out.println("Hello world.");
+            System.out.println("hey baby");
+            mainMenu.setVisible(false);
+            this.add(gameScreen);
+            //gameScreen = new GameScreenPanel();
         }
+        
         if(e.getSource() == mainMenu.getQuitButton()){
             System.out.println(" world.");
+            System.exit(0);
 
         }
     }

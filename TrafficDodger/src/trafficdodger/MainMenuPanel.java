@@ -46,10 +46,8 @@ public class MainMenuPanel extends JPanel{
     
     public void createButtons(){
         playButton = new JButton("Play");
-       // playButton.addActionListener();
         
         quitButton = new JButton("Quit");
-       // quitButton.addActionListener();
     }
     
     public JButton getPlayButton(){
