@@ -5,12 +5,42 @@
  */
 package trafficdodger;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.GridLayout;
 import javax.swing.*;
 
 /**
  *
- * @author Marchetti
+ * @author sdt5106
  */
 public class GameScreenPanel extends JPanel{
+    Car car;
+    Player player;
+    JButton x;
+    GameScreenPanel()
+    {
+        super();
+        setLayout(null);
+        setBackground(Color.BLACK);
+        init();
+        
+      //  repaint();
+    }
     
+    void init(){
+        car = new Car();
+        player = new Player("name");
+        JButton x = new JButton("Test)");
+        add(x);
+        x.setBounds(0,0, 100, 200);
+        
+    }
+    
+    
+    @Override
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g);
+        player.draw(g);
+    }
 }
