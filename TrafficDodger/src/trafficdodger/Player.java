@@ -6,7 +6,12 @@
 package trafficdodger;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -19,13 +24,30 @@ public class Player extends Rectangle {
     static int zwidth = 150;
     static int zheight = 300;
 
+    BufferedImage image1;
+    
     Player(String name) {
         userName = name;
         lives = 3;
         width = zwidth;
         height = zheight;
+        
+        loadimage();
+        
     }
-
+    
+    void loadimage(){
+        try{
+          image1 = ImageIO.read(new File("trafficdodger.images/playerCar.png"));
+        }
+        
+        catch(IOException e){
+            System.err.println(e.getMessage());
+        }
+        
+    }
+    
+    
     public int getx() {
         return x;
     }
@@ -44,7 +66,7 @@ public class Player extends Rectangle {
     }
     
     public void draw(Graphics g){
-        g.fillRect(x, y, width, height);
+        g.drawImage(image1, 0, 0, null);
        
     }
 }
