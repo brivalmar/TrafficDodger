@@ -6,6 +6,7 @@
 package trafficdodger;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -34,9 +35,6 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     private Player player;
     private String name;
     
-//    private JLabel playerName;
-//    private JLabel playerScore;
-//    private JLabel playerLives;
     
     BufferedImage road;
 
@@ -53,8 +51,6 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         listsize = 0;
         t1 = new Timer(3000, this);
         t2 = new Timer(100, this);
-//        t1.start();
-//        t2.start();
     }
 
     private void init() {
@@ -71,6 +67,7 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         requestFocusInWindow();
         drawRoad(g);
         player.drawHUD(g);
+        drawInst(g);
         player.draw(g);
         for (int i = 0; i < listsize; i++){
             carlist.get(i).draw(g);
@@ -91,6 +88,13 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         g.drawImage(road, 0, 0, null);
     }
     
+    public void drawInst(Graphics g) {
+        Font myFont = new Font("Times New Roman", Font.BOLD, 32);
+        
+        g.setColor(Color.white);
+        g.setFont(myFont);
+        g.drawString("Press Space To Start/Pause", 75, 350);
+    }
 
     @Override
     public void keyTyped(KeyEvent ke) {
@@ -131,6 +135,7 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
                t1.stop();
                t2.stop();
            } else { t1.start(); t2.start(); }
+           
         }
     }
 
