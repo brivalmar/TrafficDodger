@@ -30,6 +30,11 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     private Car car;
     private ArrayList<Car> carlist = new ArrayList<>();
     
+    private BufferedImage road1;
+    private BufferedImage road2;
+    private Timer roadTimer;
+    private int roadUsed = 1;
+    
     private int listsize;
     private Player player;
     private String name;
@@ -48,7 +53,10 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         setLayout(null);
         
         loadimage();
-
+        
+        roadTimer();
+        roadTimer.start();
+        
         init();
         listsize = 0;
         t1 = new Timer(3000, this);
@@ -79,7 +87,14 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     
     void loadimage(){
         try{
-          road = ImageIO.read(new File("src/trafficdodger/images/road1.png"));
+          road1 = ImageIO.read(new File("src/trafficdodger/images/road1.png"));
+        }
+        
+        catch(IOException e){
+            System.err.println(e.getMessage());
+        }
+        try{
+          road2 = ImageIO.read(new File("src/trafficdodger/images/road2.png"));
         }
         
         catch(IOException e){
@@ -87,8 +102,18 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         }
     }
     
+    public void roadTimer () {
+        int delay = 100;
+        roadTimer = new Timer(delay, this);
+    }
+    
     public void drawRoad (Graphics g) {
-        g.drawImage(road, 0, 0, null);
+        if(roadUsed == 1) {
+            g.drawImage(road1, 0, 0, null);
+        }
+        else if (roadUsed == 2) {
+            g.drawImage(road2, 0, 0, null);
+        }
     }
     
 
@@ -152,6 +177,16 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
                carlist.get(i).move();
            }
            repaint();
+        }
+        
+        if (e.getSource() == roadTimer) {
+            if (roadUsed == 1) {
+                roadUsed = 2;
+            }
+            else if (roadUsed == 2) {
+                roadUsed = 1;
+            }
+            repaint();
         }
     }
 }
