@@ -33,6 +33,7 @@ public class MainMenuPanel extends JPanel{
         //initializes variables
         usernameLabel = new JLabel("Username: ");
         usernameField = new JTextField(20);
+        usernameField.setText("Default User");
         
         highScoreLabel = new JLabel("Highscores: ");
         highScoreArea = new JTextArea(20,50);
@@ -62,6 +63,12 @@ public class MainMenuPanel extends JPanel{
     public JButton getQuitButton(){
         //button is private; used for actionlister in JPanelController
         return quitButton;
+    }
+    
+    public String getPlayerName() {
+        String name = usernameField.getText();
+        
+        return name;
     }
     
 

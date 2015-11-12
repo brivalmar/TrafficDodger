@@ -20,22 +20,52 @@ public class GameScreenPanel extends JPanel implements KeyListener {
 
     private Car car;
     private Player player;
+    private String name;
+    
+    private JLabel playerName;
+    private JLabel playerScore;
+    private JLabel playerLives;
 
-    GameScreenPanel() {
+    GameScreenPanel(String nm) {
         super();
+        
+        name = nm;
+        
         setLayout(null);
-       // setBackground(Color.BLACK);
         init();
 
         repaint();
     }
 
-    void init() {
+    private void init() {
         car = new Car();
-        player = new Player("name");
+        player = new Player(name);
+        
+        createHUD();
+        
+        this.add(playerName);
+        this.add(playerLives);
+        this.add(playerScore);
 
         setFocusable(true);
         addKeyListener(this);
+    }
+    
+    private void createHUD() {
+        playerName = new JLabel("Name: " + name);
+        playerName.setBounds(10, 10, 200, 15);
+        playerName.setOpaque(true);
+        playerName.setForeground(Color.white);
+        
+        playerLives = new JLabel("Lives: " + player.getLives());
+        playerLives.setBounds(10, 25, 100, 15);
+        playerLives.setOpaque(true);
+        playerLives.setForeground(Color.white);
+        
+        playerScore = new JLabel("Score: " + player.getScore());
+        playerScore.setBounds(10, 40, 200, 15);
+        playerScore.setOpaque(true);
+        playerScore.setForeground(Color.white);
     }
 
     @Override
@@ -55,13 +85,11 @@ public class GameScreenPanel extends JPanel implements KeyListener {
         int x = ke.getKeyCode();
         if (x == KeyEvent.VK_LEFT) {
             if (player.getxpos() == 365) {
-                System.out.println("In 1");
                 player.setxpos(200);
                 repaint();
             }
             
-            else if (player.getxpos() == 200) {
-                System.out.println("In 1");
+            else if (player.getxpos() == 200) {;
                 player.setxpos(45);
                 repaint();
             }
@@ -69,13 +97,11 @@ public class GameScreenPanel extends JPanel implements KeyListener {
         
         if (x == KeyEvent.VK_RIGHT) {
             if (player.getxpos() == 45) {
-                System.out.println("In 3");
                 player.setxpos(200);
                 repaint();
             }
             
             else if (player.getxpos() == 200) {
-                System.out.println("In 4");
                 player.setxpos(365);
                 repaint();
             }

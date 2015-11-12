@@ -19,25 +19,23 @@ import javax.imageio.ImageIO;
  */
 public class Player extends Rectangle {
 
-    String userName;
-    int lives;
+    private String userName;
+    
+    private int lives;
+    private int score;
     
     private int x = 200;
     private int y = 550;
     
-    //private static int zwidth = 150;
-    //private static int zheight = 300;
 
     BufferedImage image1;
     
     Player(String name) {
         userName = name;
         lives = 3;
-        //width = zwidth;
-        //height = zheight;
+        score = 0;
         
         loadimage();
-        
     }
     
     void loadimage(){
@@ -51,6 +49,13 @@ public class Player extends Rectangle {
         
     }
     
+    public int getLives() {
+        return lives;
+    }
+    
+    public int getScore() {
+        return score;
+    }    
     
     public int getxpos() {
         return x;

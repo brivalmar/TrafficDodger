@@ -21,7 +21,6 @@ public class JPanelController extends JPanel implements ActionListener{
     
     public JPanelController(){
         //creates new Panels to show
-        gameScreen = new GameScreenPanel();
         mainMenu = new MainMenuPanel();
         
        
@@ -43,6 +42,7 @@ public class JPanelController extends JPanel implements ActionListener{
         //decisions for button clicked
         if(e.getSource() == mainMenu.getPlayButton()){
             mainMenu.setVisible(false);
+            gameScreen = new GameScreenPanel(mainMenu.getPlayerName());
             this.add(gameScreen);
         }
         
