@@ -28,12 +28,14 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
 
     private Timer t1;
     private Timer t2;
+    private Timer roadTimer;
+            
     private Car car;
     private ArrayList<Car> carlist = new ArrayList<>();
     
     private BufferedImage road1;
     private BufferedImage road2;
-    private Timer roadTimer;
+
     private int roadUsed = 1;
     
     private int listsize;
@@ -52,13 +54,11 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         
         loadimage();
         
-        roadTimer();
-        roadTimer.start();
-        
         init();
         listsize = 0;
         t1 = new Timer(3000, this);
         t2 = new Timer(100, this);
+        roadTimer = new Timer(100, this);
     }
 
     private void init() {
@@ -97,11 +97,6 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         catch(IOException e){
             System.err.println(e.getMessage());
         }
-    }
-    
-    public void roadTimer () {
-        int delay = 100;
-        roadTimer = new Timer(delay, this);
     }
     
     public void drawRoad (Graphics g) {
@@ -159,7 +154,8 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
            if(t1State) {
                t1.stop();
                t2.stop();
-           } else { t1.start(); t2.start(); }
+               roadTimer.stop();
+           } else { t1.start(); t2.start(); roadTimer.start(); }
            
         }
     }
