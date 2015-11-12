@@ -12,7 +12,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -27,10 +30,12 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     private ArrayList<Car> carlist = new ArrayList();
     private int listsize;
     private Player player;
+    BufferedImage road;
 
     GameScreenPanel() {
         super();
         setLayout(null);
+        loadimage();
        // setBackground(Color.BLACK);
         init();
         listsize = 0;
@@ -52,10 +57,25 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         requestFocusInWindow();
+        drawRoad(g);
         player.draw(g);
         for (int i = 0; i < listsize; i++){
             carlist.get(i).draw(g);
         }
+    }
+    
+    void loadimage(){
+        try{
+          road = ImageIO.read(new File("src/trafficdodger/images/road1.png"));
+        }
+        
+        catch(IOException e){
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void drawRoad (Graphics g) {
+        g.drawImage(road, 0, 0, null);
     }
 
     @Override
