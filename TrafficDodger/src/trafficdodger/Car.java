@@ -21,9 +21,21 @@ public class Car extends Rectangle {
     BufferedImage image;
 
     Car() {
+        generatex();
         loadimage();
     }
-
+    
+    void generatex(){
+        int rng = (int)(Math.random()*3);
+        if (rng == 0){
+            x = 35;
+        }
+        else if (rng == 1){
+            x = 200;
+        }
+        else x = 365;
+    }
+    
     public int getx(){
         return x;
     }
@@ -51,7 +63,7 @@ public class Car extends Rectangle {
             temp = "yellowCar.png";
         }
         try {
-            image = ImageIO.read(new File("trafficdodger.images/" + temp));
+            image = ImageIO.read(new File("src/trafficdodger/images/" + temp));
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }

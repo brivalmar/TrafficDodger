@@ -8,6 +8,8 @@ package trafficdodger;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -20,9 +22,13 @@ import javax.swing.*;
  *
  * @author sdt5106
  */
-public class GameScreenPanel extends JPanel implements KeyListener {
+public class GameScreenPanel extends JPanel implements KeyListener, ActionListener{
 
+    private Timer t1;
+    private Timer t2;
     private Car car;
+    private ArrayList<Car> carlist = new ArrayList();
+    private int listsize;
     private Player player;
     private String name;
     
@@ -42,9 +48,11 @@ public class GameScreenPanel extends JPanel implements KeyListener {
         loadimage();
 
         init();
-
-        repaint();
-        
+        listsize = 0;
+        t1 = new Timer(3000, this);
+        t2 = new Timer(100, carmove);
+        t1.start();
+        t2.start();
     }
 
     private void init() {
@@ -84,6 +92,9 @@ public class GameScreenPanel extends JPanel implements KeyListener {
         requestFocusInWindow();
         drawRoad(g);
         player.draw(g);
+        for (int i = 0; i < listsize; i++){
+            carlist.get(i).draw(g);
+        }
     }
     
     void loadimage(){
@@ -137,4 +148,22 @@ public class GameScreenPanel extends JPanel implements KeyListener {
     public void keyReleased(KeyEvent ke) {
         //Not used yet.
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        car = new Car();
+        carlist.add(car);
+        listsize++;
+    }
+    
+    ActionListener carmove = new ActionListener() {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+           for(int i = 0; i<listsize; i++){
+               carlist.get(i).move();
+           }
+           repaint();
+        }
+    };
 }
