@@ -15,6 +15,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -27,14 +28,15 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     private Timer t1;
     private Timer t2;
     private Car car;
-    private ArrayList<Car> carlist = new ArrayList();
+    private ArrayList<Car> carlist = new ArrayList<>();
+    
     private int listsize;
     private Player player;
     private String name;
     
-    private JLabel playerName;
-    private JLabel playerScore;
-    private JLabel playerLives;
+//    private JLabel playerName;
+//    private JLabel playerScore;
+//    private JLabel playerLives;
     
     BufferedImage road;
 
@@ -50,40 +52,17 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         init();
         listsize = 0;
         t1 = new Timer(3000, this);
-        t2 = new Timer(100, carmove);
-        t1.start();
-        t2.start();
+        t2 = new Timer(100, this);
+//        t1.start();
+//        t2.start();
     }
 
     private void init() {
         car = new Car();
         player = new Player(name);
-        
-        createHUD();
-        
-        this.add(playerName);
-        this.add(playerLives);
-        this.add(playerScore);
 
         setFocusable(true);
         addKeyListener(this);
-    }
-    
-    private void createHUD() {
-        playerName = new JLabel("Name: " + name);
-        playerName.setBounds(10, 10, 200, 15);
-        playerName.setOpaque(true);
-        playerName.setForeground(Color.white);
-        
-        playerLives = new JLabel("Lives: " + player.getLives());
-        playerLives.setBounds(10, 25, 100, 15);
-        playerLives.setOpaque(true);
-        playerLives.setForeground(Color.white);
-        
-        playerScore = new JLabel("Score: " + player.getScore());
-        playerScore.setBounds(10, 40, 200, 15);
-        playerScore.setOpaque(true);
-        playerScore.setForeground(Color.white);
     }
 
     @Override
@@ -91,6 +70,7 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         super.paintComponent(g);
         requestFocusInWindow();
         drawRoad(g);
+        player.drawHUD(g);
         player.draw(g);
         for (int i = 0; i < listsize; i++){
             carlist.get(i).draw(g);
@@ -110,6 +90,7 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     public void drawRoad (Graphics g) {
         g.drawImage(road, 0, 0, null);
     }
+    
 
     @Override
     public void keyTyped(KeyEvent ke) {
@@ -142,6 +123,15 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
                 repaint();
             }
         }
+        
+        if ( x == KeyEvent.VK_SPACE) {
+           boolean t1State = t1.isRunning();
+           
+           if(t1State) {
+               t1.stop();
+               t2.stop();
+           } else { t1.start(); t2.start(); }
+        }
     }
 
     @Override
@@ -151,19 +141,17 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        car = new Car();
-        carlist.add(car);
-        listsize++;
-    }
-    
-    ActionListener carmove = new ActionListener() {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == t1) {
+            car = new Car();
+            carlist.add(car);
+            listsize++;
+        }
+        
+        if(e.getSource() == t2) {
            for(int i = 0; i<listsize; i++){
                carlist.get(i).move();
            }
            repaint();
         }
-    };
+    }
 }

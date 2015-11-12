@@ -5,6 +5,7 @@
  */
 package trafficdodger;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -25,7 +26,7 @@ public class Player extends Rectangle {
     private int score;
     
     private int x = 200;
-    private int y = 550;
+    private int y = 545;
     
 
     BufferedImage image1;
@@ -80,5 +81,12 @@ public class Player extends Rectangle {
     public void draw(Graphics g){
         g.drawImage(image1, x, y, null);
        
+    }
+    
+    public void drawHUD(Graphics g) {
+        g.setColor(Color.white);
+        g.drawString("Name: " + userName, 22, 10);
+        g.drawString("Lives: " + lives, 22, 25);
+        g.drawString("Score: " + score, 22, 40);
     }
 }
