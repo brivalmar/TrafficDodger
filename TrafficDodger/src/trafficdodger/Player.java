@@ -21,16 +21,20 @@ public class Player extends Rectangle {
 
     String userName;
     int lives;
-    static int zwidth = 150;
-    static int zheight = 300;
+    
+    private int x = 200;
+    private int y = 550;
+    
+    //private static int zwidth = 150;
+    //private static int zheight = 300;
 
     BufferedImage image1;
     
     Player(String name) {
         userName = name;
         lives = 3;
-        width = zwidth;
-        height = zheight;
+        //width = zwidth;
+        //height = zheight;
         
         loadimage();
         
@@ -57,7 +61,7 @@ public class Player extends Rectangle {
 
     }
     public void setxpos(int a){
-        x += a;
+        x = a;
     }
 
     public int getwidth() {

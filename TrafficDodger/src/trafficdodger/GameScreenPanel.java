@@ -47,23 +47,36 @@ public class GameScreenPanel extends JPanel implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent ke) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Not used yet.
     }
 
     @Override
     public void keyPressed(KeyEvent ke) {
         int x = ke.getKeyCode();
         if (x == KeyEvent.VK_LEFT) {
-            if (player.getxpos() > 0) {
-                player.setxpos(-10);
+            if (player.getxpos() == 365) {
+                System.out.println("In 1");
+                player.setxpos(200);
                 repaint();
-
+            }
+            
+            else if (player.getxpos() == 200) {
+                System.out.println("In 1");
+                player.setxpos(45);
+                repaint();
             }
         }
-
+        
         if (x == KeyEvent.VK_RIGHT) {
-            if (player.getxpos() < 750) {
-                player.setxpos(10);
+            if (player.getxpos() == 45) {
+                System.out.println("In 3");
+                player.setxpos(200);
+                repaint();
+            }
+            
+            else if (player.getxpos() == 200) {
+                System.out.println("In 4");
+                player.setxpos(365);
                 repaint();
             }
         }
@@ -71,6 +84,6 @@ public class GameScreenPanel extends JPanel implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent ke) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Not used yet.
     }
 }
