@@ -40,18 +40,18 @@ public class Car extends Rectangle {
         String temp;
         int rng = (int) (Math.random() * 5);
         if (rng == 0) {
-            temp = "blue";
+            temp = "blueCar.png";
         } else if (rng == 1) {
-            temp = "green";
+            temp = "greenCar.png";
         } else if (rng == 2) {
-            temp = "orange";
+            temp = "orangeCar.png";
         } else if (rng == 3) {
-            temp = "red";
+            temp = "redCar.png";
         } else {
-            temp = "yellow";
+            temp = "yellowCar.png";
         }
         try {
-            image = ImageIO.read(new File("trafficdodger.images/" + temp + "Car.png"));
+            image = ImageIO.read(new File("trafficdodger.images/" + temp));
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }

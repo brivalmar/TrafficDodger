@@ -24,9 +24,10 @@ public class GameFrame extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.add(new JPanelController());
         this.setVisible(true);
-        
     }
     
+    //Is this even necessary?
+    /*
     public static void switchToMain(){
         
     }
@@ -34,5 +35,6 @@ public class GameFrame extends JFrame {
     public static void switchToGame(){
         
     }
+    */
     
 }
