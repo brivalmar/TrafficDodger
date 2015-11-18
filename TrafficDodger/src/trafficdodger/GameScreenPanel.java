@@ -42,6 +42,8 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     private Player player;
     private String name;
     
+    private boolean isPaused = true;
+    
     
     BufferedImage road;
 
@@ -68,17 +70,24 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         setFocusable(true);
         addKeyListener(this);
     }
+    
+    private void gameOver() {
+        
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         requestFocusInWindow();
         drawRoad(g);
-        player.drawHUD(g);
-        drawInst(g);
-        player.draw(g);
+        player.drawHUD(g);        
         for (int i = 0; i < listsize; i++){
             carlist.get(i).draw(g);
+        }
+        player.draw(g);
+        
+        if(isPaused) {
+            drawInst(g);
         }
     }
     
@@ -155,8 +164,9 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
                t1.stop();
                t2.stop();
                roadTimer.stop();
-           } else { t1.start(); t2.start(); roadTimer.start(); }
-           
+               isPaused = true;
+           } else { t1.start(); t2.start(); roadTimer.start(); isPaused = false;}
+           repaint();
         }
     }
 
