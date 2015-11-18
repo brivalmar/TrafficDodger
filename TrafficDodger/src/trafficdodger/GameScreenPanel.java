@@ -134,26 +134,30 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     public void keyPressed(KeyEvent ke) {
         int x = ke.getKeyCode();
         if (x == KeyEvent.VK_LEFT) {
-            if (player.getxpos() == 365) {
-                player.setxpos(200);
-                repaint();
-            }
-            
-            else if (player.getxpos() == 200) {;
-                player.setxpos(45);
-                repaint();
+            if (!isPaused){
+                if (player.getxpos() == 365) {
+                    player.setxpos(200);
+                    repaint();
+                }
+
+                else if (player.getxpos() == 200) {;
+                    player.setxpos(45);
+                    repaint();
+                }
             }
         }
         
         if (x == KeyEvent.VK_RIGHT) {
-            if (player.getxpos() == 45) {
-                player.setxpos(200);
-                repaint();
-            }
-            
-            else if (player.getxpos() == 200) {
-                player.setxpos(365);
-                repaint();
+            if (!isPaused){
+                if (player.getxpos() == 45) {
+                    player.setxpos(200);
+                    repaint();
+                }
+
+                else if (player.getxpos() == 200) {
+                    player.setxpos(365);
+                    repaint();
+                }
             }
         }
         

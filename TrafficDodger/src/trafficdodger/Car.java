@@ -28,7 +28,7 @@ public class Car extends Rectangle {
     void generatex(){
         int rng = (int)(Math.random()*3);
         if (rng == 0){
-            x = 35;
+            x = 45;
         }
         else if (rng == 1){
             x = 200;
