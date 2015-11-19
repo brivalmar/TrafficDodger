@@ -35,6 +35,7 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     
     private BufferedImage road1;
     private BufferedImage road2;
+    private BufferedImage explosion;
 
     private int roadUsed = 1;
     
@@ -101,6 +102,13 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         }
         try{
           road2 = ImageIO.read(new File("src/trafficdodger/images/road2.png"));
+        }
+        
+        catch(IOException e){
+            System.err.println(e.getMessage());
+        }
+        try{
+          explosion = ImageIO.read(new File("src/trafficdodger/images/explosion.png"));
         }
         
         catch(IOException e){
