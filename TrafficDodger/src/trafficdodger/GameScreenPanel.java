@@ -5,9 +5,11 @@
  */
 package trafficdodger;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,6 +38,7 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     private BufferedImage road1;
     private BufferedImage road2;
     private BufferedImage explosion;
+    private BufferedImage tmpImg = new BufferedImage(200, 139, BufferedImage.TYPE_INT_ARGB);
 
     private int roadUsed = 1;
 
@@ -45,6 +48,7 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
 
     private boolean isPaused = true;
     private boolean collision = false;
+    private boolean explosionMade = false;
 
     BufferedImage road;
 
@@ -56,7 +60,7 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         setLayout(null);
 
         loadimage();
-
+        
         init();
         listsize = 0;
         t1 = new Timer(3000, this);
@@ -87,6 +91,10 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
             carlist.get(i).draw(g);
         }
         player.draw(g);
+        
+        if (!explosionMade) {
+            makeExplosion(g);
+        }
 
         if (isPaused) {
             drawInst(g);
@@ -108,7 +116,7 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
             System.err.println(e.getMessage());
         }
         try{
-          explosion = ImageIO.read(new File("src/trafficdodger/images/explosion.png"));
+            explosion = ImageIO.read(new File("src/trafficdodger/images/explosion.png"));
         }
         
         catch(IOException e){
@@ -132,8 +140,16 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         g.drawString("Press Space To Start/Pause", 75, 350);
     }
     
+    public void makeExplosion(Graphics g) {
+        Graphics2D g2d = (Graphics2D) tmpImg.getGraphics();
+        g2d.setComposite(AlphaComposite.SrcOver.derive(0.7f)); 
+            // set the transparency level in range 0.0f - 1.0f 
+        g2d.drawImage(explosion, 0, 0, null);
+        explosion = tmpImg;
+        explosionMade = true;
+    }
     public void drawExplosion(Graphics g) {
-        g.drawImage(explosion, player.getxpos() - 40, player.getypos() - 50, null);
+        g.drawImage(explosion, player.getxpos() - 50, player.getypos() - 60, null);
     }
     
     public void pause() {
@@ -149,6 +165,7 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
                 t2.start();
                 roadTimer.start();
                 isPaused = false;
+                collision = false;
             }
             repaint();
     }
@@ -162,22 +179,26 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     public void keyPressed(KeyEvent ke) {
         int x = ke.getKeyCode();
         if (x == KeyEvent.VK_LEFT) {
-            if (player.getxpos() == 365) {
-                player.setxpos(200);
-                repaint();
-            } else if (player.getxpos() == 200) {;
-                player.setxpos(45);
-                repaint();
+            if (!isPaused) {
+                if (player.getxpos() == 365) {
+                    player.setxpos(200);
+                    repaint();
+                } else if (player.getxpos() == 200) {;
+                    player.setxpos(45);
+                    repaint();
+                }
             }
         }
 
         if (x == KeyEvent.VK_RIGHT) {
-            if (player.getxpos() == 45) {
-                player.setxpos(200);
-                repaint();
-            } else if (player.getxpos() == 200) {
-                player.setxpos(365);
-                repaint();
+            if (!isPaused) {
+                if (player.getxpos() == 45) {
+                    player.setxpos(200);
+                    repaint();
+                } else if (player.getxpos() == 200) {
+                    player.setxpos(365);
+                    repaint();
+                }
             }
         }
 
