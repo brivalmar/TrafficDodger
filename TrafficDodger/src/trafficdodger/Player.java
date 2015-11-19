@@ -35,7 +35,8 @@ public class Player extends Rectangle {
         userName = name;
         lives = 3;
         score = 0;
-        
+        width = 100;
+        height = 124;
         loadimage();
     }
     
@@ -70,6 +71,14 @@ public class Player extends Rectangle {
         x = a;
     }
 
+    public void addscore(){
+        score = score + 100;
+    }
+    
+    public void decrementLife(){
+        lives = lives--;
+    }
+    
     public int getwidth() {
         return width;
     }
