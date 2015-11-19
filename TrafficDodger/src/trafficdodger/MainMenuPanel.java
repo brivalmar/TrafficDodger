@@ -7,6 +7,7 @@ package trafficdodger;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 /**
@@ -25,7 +26,7 @@ public class MainMenuPanel extends JPanel{
     private JLabel highScoreLabel;
     private JTextArea highScoreArea;
     
-    
+    Scores score;
     
     public MainMenuPanel(){
         createButtons();
@@ -36,8 +37,19 @@ public class MainMenuPanel extends JPanel{
         usernameField.setText("Default User");
         
         highScoreLabel = new JLabel("Highscores: ");
-        highScoreArea = new JTextArea(20,50);
-                
+        highScoreArea = new JTextArea(20,40);
+        
+        score = new Scores();
+        
+        ArrayList<String> strings = score.getStringList();
+        ArrayList<Integer> ints = score.getIntList();
+        for(int i = 0; i < 20; i++){
+            highScoreArea.append(strings.get(i));
+            highScoreArea.append("               ");
+            highScoreArea.append(ints.get(i).toString() + "\n");
+        }
+
+        
         //adds objects to Panel
         this.add(playButton);
         this.add(quitButton);
@@ -45,7 +57,7 @@ public class MainMenuPanel extends JPanel{
         this.add(usernameField);
         this.add(highScoreLabel);
         this.add(highScoreArea);
-        
+//        highScoreArea.addLists();
     }
     
     public void createButtons(){
@@ -69,6 +81,10 @@ public class MainMenuPanel extends JPanel{
         String name = usernameField.getText();
         
         return name;
+    }
+    
+    public JTextArea getHighScoreArea(){
+        return highScoreArea;
     }
     
 
