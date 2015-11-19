@@ -35,7 +35,8 @@ public class Player extends Rectangle {
         userName = name;
         lives = 3;
         score = 0;
-        
+        width = 100;
+        height = 124;
         loadimage();
     }
     
