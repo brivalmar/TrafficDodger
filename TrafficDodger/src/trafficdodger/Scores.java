@@ -6,7 +6,9 @@
 package trafficdodger;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import javax.swing.JTextArea;
 
@@ -18,9 +20,10 @@ public class Scores {
  
     private ArrayList<String> strings;
     private ArrayList<Integer> ints;
-    
+    Player player;
     public Scores(){
-       readAndSort();
+     
+        readAndSort();
        
     }
     
@@ -73,5 +76,17 @@ public class Scores {
                     
         }
 
+    }
+    
+    public void writeToFile(String userName, int score){
+        
+        try(BufferedWriter writing = new BufferedWriter(new FileWriter("listOfScores.txt"))){
+            
+            writing.append(userName +" "+score);
+            writing.close();
+            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }  
     }
 }
