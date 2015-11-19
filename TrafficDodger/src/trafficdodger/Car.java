@@ -23,6 +23,8 @@ public class Car extends Rectangle {
 
     Car() {
         state = true;
+        width = 100;
+        height = 124;
         generatex();
         loadimage();
     }

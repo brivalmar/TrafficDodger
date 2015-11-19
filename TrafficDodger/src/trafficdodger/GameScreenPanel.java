@@ -65,6 +65,7 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     private void init() {
         car = new Car();
         player = new Player(name);
+        
 
         setFocusable(true);
         addKeyListener(this);
@@ -182,6 +183,13 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
             for (int i = 0; i < listsize; i++) {
                 if (carlist.get(i).getstate() == true) {
                     carlist.get(i).move();
+               
+                    
+                    if (carlist.get(i).getBounds().intersects(player.getBounds()) == true)
+                    {
+                        System.out.print("abc");
+                        
+                    }
                     if (carlist.get(i).gety() > 700) {
                         carlist.get(i).setstatefalse();
                         player.addscore();
@@ -201,5 +209,8 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
             }
             repaint();
         }
+        
+   
+        
     }
 }
