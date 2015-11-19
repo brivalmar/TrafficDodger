@@ -56,7 +56,7 @@ public class MainMenuPanel extends JPanel{
         for(int i = 0; i < size; i++){
              jstring[i] = new JLabel();
              jnumber[i] = new JLabel();
-             jstring[i].setText(strings.get(i));
+             jstring[i].setText("             " +strings.get(i));
              jnumber[i].setText(valueOf(ints.get(i)));
              center.add(jstring[i]);
              center.add(jnumber[i]);
