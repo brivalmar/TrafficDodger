@@ -126,6 +126,10 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         g.setFont(myFont);
         g.drawString("Press Space To Start/Pause", 75, 350);
     }
+    
+    public void drawExplosion(Graphics g, int x, int y) {
+        g.drawImage(explosion, x, y, null);
+    }
 
     @Override
     public void keyTyped(KeyEvent ke) {
