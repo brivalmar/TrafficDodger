@@ -19,8 +19,10 @@ import javax.imageio.ImageIO;
 public class Car extends Rectangle {
 
     BufferedImage image;
+    Boolean state;
 
     Car() {
+        state = true;
         generatex();
         loadimage();
     }
@@ -42,6 +44,14 @@ public class Car extends Rectangle {
     
     public int gety(){
         return y;
+    }
+    
+    public boolean getstate(){
+        return state;
+    }
+    
+    public void setstatefalse(){
+        state = false;
     }
     
     public void move(){

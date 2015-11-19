@@ -70,6 +70,10 @@ public class Player extends Rectangle {
         x = a;
     }
 
+    public void addscore(){
+        score = score + 100;
+    }
+    
     public int getwidth() {
         return width;
     }

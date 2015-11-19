@@ -24,39 +24,38 @@ import javax.swing.*;
  *
  * @author sdt5106
  */
-public class GameScreenPanel extends JPanel implements KeyListener, ActionListener{
+public class GameScreenPanel extends JPanel implements KeyListener, ActionListener {
 
     private Timer t1;
     private Timer t2;
     private Timer roadTimer;
-            
+
     private Car car;
     private ArrayList<Car> carlist = new ArrayList<>();
-    
+
     private BufferedImage road1;
     private BufferedImage road2;
     private BufferedImage explosion;
 
     private int roadUsed = 1;
-    
+
     private int listsize;
     private Player player;
     private String name;
-    
+
     private boolean isPaused = true;
-    
-    
+
     BufferedImage road;
 
     GameScreenPanel(String nm) {
         super();
-        
+
         name = nm;
-        
+
         setLayout(null);
-        
+
         loadimage();
-        
+
         init();
         listsize = 0;
         t1 = new Timer(3000, this);
@@ -71,9 +70,9 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         setFocusable(true);
         addKeyListener(this);
     }
-    
+
     private void gameOver() {
-        
+
     }
 
     @Override
@@ -81,30 +80,26 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         super.paintComponent(g);
         requestFocusInWindow();
         drawRoad(g);
-        player.drawHUD(g);        
-        for (int i = 0; i < listsize; i++){
+        player.drawHUD(g);
+        for (int i = 0; i < listsize; i++) {
             carlist.get(i).draw(g);
         }
         player.draw(g);
-        
-        if(isPaused) {
+
+        if (isPaused) {
             drawInst(g);
         }
     }
-    
-    void loadimage(){
-        try{
-          road1 = ImageIO.read(new File("src/trafficdodger/images/road1.png"));
-        }
-        
-        catch(IOException e){
+
+    void loadimage() {
+        try {
+            road1 = ImageIO.read(new File("src/trafficdodger/images/road1.png"));
+        } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-        try{
-          road2 = ImageIO.read(new File("src/trafficdodger/images/road2.png"));
-        }
-        
-        catch(IOException e){
+        try {
+            road2 = ImageIO.read(new File("src/trafficdodger/images/road2.png"));
+        } catch (IOException e) {
             System.err.println(e.getMessage());
         }
         try{
@@ -115,19 +110,18 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
             System.err.println(e.getMessage());
         }
     }
-    
-    public void drawRoad (Graphics g) {
-        if(roadUsed == 1) {
+
+    public void drawRoad(Graphics g) {
+        if (roadUsed == 1) {
             g.drawImage(road1, 0, 0, null);
-        }
-        else if (roadUsed == 2) {
+        } else if (roadUsed == 2) {
             g.drawImage(road2, 0, 0, null);
         }
     }
-    
+
     public void drawInst(Graphics g) {
         Font myFont = new Font("Times New Roman", Font.BOLD, 32);
-        
+
         g.setColor(Color.white);
         g.setFont(myFont);
         g.drawString("Press Space To Start/Pause", 75, 350);
@@ -142,43 +136,40 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     public void keyPressed(KeyEvent ke) {
         int x = ke.getKeyCode();
         if (x == KeyEvent.VK_LEFT) {
-            if (!isPaused){
-                if (player.getxpos() == 365) {
-                    player.setxpos(200);
-                    repaint();
-                }
-
-                else if (player.getxpos() == 200) {;
-                    player.setxpos(45);
-                    repaint();
-                }
+            if (player.getxpos() == 365) {
+                player.setxpos(200);
+                repaint();
+            } else if (player.getxpos() == 200) {;
+                player.setxpos(45);
+                repaint();
             }
         }
-        
+
         if (x == KeyEvent.VK_RIGHT) {
-            if (!isPaused){
-                if (player.getxpos() == 45) {
-                    player.setxpos(200);
-                    repaint();
-                }
-
-                else if (player.getxpos() == 200) {
-                    player.setxpos(365);
-                    repaint();
-                }
+            if (player.getxpos() == 45) {
+                player.setxpos(200);
+                repaint();
+            } else if (player.getxpos() == 200) {
+                player.setxpos(365);
+                repaint();
             }
         }
-        
-        if ( x == KeyEvent.VK_SPACE) {
-           boolean t1State = t1.isRunning();
-           
-           if(t1State) {
-               t1.stop();
-               t2.stop();
-               roadTimer.stop();
-               isPaused = true;
-           } else { t1.start(); t2.start(); roadTimer.start(); isPaused = false;}
-           repaint();
+
+        if (x == KeyEvent.VK_SPACE) {
+            boolean t1State = t1.isRunning();
+
+            if (t1State) {
+                t1.stop();
+                t2.stop();
+                roadTimer.stop();
+                isPaused = true;
+            } else {
+                t1.start();
+                t2.start();
+                roadTimer.start();
+                isPaused = false;
+            }
+            repaint();
         }
     }
 
@@ -189,24 +180,31 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == t1) {
+        if (e.getSource() == t1) {
             car = new Car();
             carlist.add(car);
             listsize++;
         }
-        
-        if(e.getSource() == t2) {
-           for(int i = 0; i<listsize; i++){
-               carlist.get(i).move();
-           }
-           repaint();
+
+        if (e.getSource() == t2) {
+            for (int i = 0; i < listsize; i++) {
+                if (carlist.get(i).getstate() == true) {
+                    carlist.get(i).move();
+                    if (carlist.get(i).gety() > 700) {
+                        carlist.get(i).setstatefalse();
+                        player.addscore();
+
+                    }
+                }
+
+            }
+            repaint();
         }
-        
+
         if (e.getSource() == roadTimer) {
             if (roadUsed == 1) {
                 roadUsed = 2;
-            }
-            else if (roadUsed == 2) {
+            } else if (roadUsed == 2) {
                 roadUsed = 1;
             }
             repaint();
