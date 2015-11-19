@@ -51,6 +51,10 @@ public class Player extends Rectangle {
         
     }
     
+    public String getName(){
+        return userName;
+    }
+    
     public int getLives() {
         return lives;
     }

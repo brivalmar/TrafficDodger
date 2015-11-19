@@ -7,6 +7,8 @@ package trafficdodger;
 
 import java.awt.*;
 import java.awt.event.*;
+import static java.lang.String.valueOf;
+import java.util.ArrayList;
 import javax.swing.*;
 
 /**
@@ -18,34 +20,64 @@ public class MainMenuPanel extends JPanel{
     //calls initial variables for Panel
     private JButton playButton;
     private JButton quitButton;
-    
+    private JPanel top;
+    private JPanel center;
     private JLabel usernameLabel;
     private JTextField usernameField;
     
+    private JLabel [] jstring = new JLabel[20];
+    private JLabel [] jnumber = new JLabel[20];
+   
+    
     private JLabel highScoreLabel;
     private JTextArea highScoreArea;
-    
-    
+    private int size;
+    Scores score;
     
     public MainMenuPanel(){
         createButtons();
-        
+        setLayout(new BorderLayout());
+        top = new JPanel();
+        center = new JPanel();
+        center.setLayout(new GridLayout(size, 2));
         //initializes variables
         usernameLabel = new JLabel("Username: ");
         usernameField = new JTextField(20);
         usernameField.setText("Default User");
         
         highScoreLabel = new JLabel("Highscores: ");
-        highScoreArea = new JTextArea(20,50);
-                
-        //adds objects to Panel
-        this.add(playButton);
-        this.add(quitButton);
-        this.add(usernameLabel);
-        this.add(usernameField);
-        this.add(highScoreLabel);
-        this.add(highScoreArea);
+      //  highScoreArea = new JTextArea(20,40);
         
+        score = new Scores();
+        
+        ArrayList<String> strings = score.getStringList();
+        ArrayList<Integer> ints = score.getIntList();
+        size = strings.size();
+        for(int i = 0; i < size; i++){
+             jstring[i] = new JLabel();
+             jnumber[i] = new JLabel();
+             jstring[i].setText(strings.get(i));
+             jnumber[i].setText(valueOf(ints.get(i)));
+             center.add(jstring[i]);
+             center.add(jnumber[i]);
+          /*  highScoreArea.append(strings.get(i));
+            highScoreArea.append("               ");
+            highScoreArea.append(ints.get(i).toString() + "\n");*/
+        }
+        
+        
+
+        
+        //adds objects to Panel
+        top.add(playButton);
+        top.add(quitButton);
+        top.add(usernameLabel);
+        top.add(usernameField);
+        add(top, BorderLayout.NORTH);
+        add(center, BorderLayout.CENTER);
+        //this.add(highScoreLabel);
+    //    this.add(highScoreArea);
+//        highScoreArea.addLists();
     }
     
     public void createButtons(){
@@ -69,6 +101,10 @@ public class MainMenuPanel extends JPanel{
         String name = usernameField.getText();
         
         return name;
+    }
+    
+    public JTextArea getHighScoreArea(){
+        return highScoreArea;
     }
     
 

@@ -34,7 +34,6 @@ public class JPanelController extends JPanel implements ActionListener{
         mainMenu.getPlayButton().addActionListener(this);
         mainMenu.getQuitButton().addActionListener(this);
         
-        
     }
 
     @Override
