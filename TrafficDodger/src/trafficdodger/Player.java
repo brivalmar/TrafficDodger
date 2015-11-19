@@ -74,6 +74,10 @@ public class Player extends Rectangle {
         score = score + 100;
     }
     
+    public void decrementLife(){
+        lives = lives--;
+    }
+    
     public int getwidth() {
         return width;
     }
