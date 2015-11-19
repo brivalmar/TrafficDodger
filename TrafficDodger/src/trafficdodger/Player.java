@@ -76,7 +76,7 @@ public class Player extends Rectangle {
     }
     
     public void decrementLife(){
-        lives = lives--;
+        lives = lives - 1;
     }
     
     public int getwidth() {

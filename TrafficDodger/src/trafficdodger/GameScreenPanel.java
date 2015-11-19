@@ -44,6 +44,7 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     private String name;
 
     private boolean isPaused = true;
+    private boolean collision = false;
 
     BufferedImage road;
 
@@ -90,6 +91,9 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         if (isPaused) {
             drawInst(g);
         }
+        if (collision) {
+            drawExplosion(g);
+        }
     }
 
     void loadimage() {
@@ -128,8 +132,25 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         g.drawString("Press Space To Start/Pause", 75, 350);
     }
     
-    public void drawExplosion(Graphics g, int x, int y) {
-        g.drawImage(explosion, x, y, null);
+    public void drawExplosion(Graphics g) {
+        g.drawImage(explosion, player.getxpos() - 40, player.getypos() - 50, null);
+    }
+    
+    public void pause() {
+        boolean t1State = t1.isRunning();
+
+            if (t1State) {
+                t1.stop();
+                t2.stop();
+                roadTimer.stop();
+                isPaused = true;
+            } else {
+                t1.start();
+                t2.start();
+                roadTimer.start();
+                isPaused = false;
+            }
+            repaint();
     }
 
     @Override
@@ -161,20 +182,7 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         }
 
         if (x == KeyEvent.VK_SPACE) {
-            boolean t1State = t1.isRunning();
-
-            if (t1State) {
-                t1.stop();
-                t2.stop();
-                roadTimer.stop();
-                isPaused = true;
-            } else {
-                t1.start();
-                t2.start();
-                roadTimer.start();
-                isPaused = false;
-            }
-            repaint();
+            pause();
         }
     }
 
@@ -191,17 +199,18 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
             listsize++;
         }
 
+        
         if (e.getSource() == t2) {
             for (int i = 0; i < listsize; i++) {
                 if (carlist.get(i).getstate() == true) {
                     carlist.get(i).move();
-               
-                    
-                    if (carlist.get(i).getBounds().intersects(player.getBounds()) == true)
-                    {
-                        System.out.print("abc");
-                        
-                    }
+                    if (carlist.get(i).getx() == player.getxpos())
+                        if ((carlist.get(i).gety() + player.height > player.getypos()) && (carlist.get(i).gety() < player.getypos() + player.height))
+                        {
+                            pause();
+                            collision = true;
+                            player.decrementLife();
+                        }
                     if (carlist.get(i).gety() > 700) {
                         carlist.get(i).setstatefalse();
                         player.addscore();
