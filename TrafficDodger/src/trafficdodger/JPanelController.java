@@ -44,7 +44,7 @@ public class JPanelController extends JPanel implements ActionListener{
             mainMenu.setVisible(false);
             controller = new GameController();
             gameScreen = new GameScreenPanel(mainMenu.getPlayerName());
-            this.add(gameScreen);
+            this.add(gameScreen); 
         }
         
         if(e.getSource() == mainMenu.getQuitButton()){
