@@ -52,9 +52,9 @@ public class JPanelController extends JPanel implements ActionListener{
     
     public void switchToMain()
     {
-       System.out.println("In Switch to Main");
        this.remove(gameScreen);
        this.add(mainMenu);
+       mainMenu.displayScores();
        validate();
        repaint();
     }

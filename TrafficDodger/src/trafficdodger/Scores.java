@@ -77,6 +77,14 @@ public class Scores {
     public void writeToFile(String userName, int score){                
         try{
             BufferedWriter w = new BufferedWriter(new FileWriter("listOfScores.txt"));
+            
+            for(int i = 0; i < strings.size(); i++)
+            {
+                w.write(strings.get(i) + " " + ints.get(i));
+                w.newLine();
+                w.flush();
+            }
+            
             w.write(userName + " " + score);
             w.newLine();
             w.flush();

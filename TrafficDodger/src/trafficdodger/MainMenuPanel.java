@@ -39,49 +39,28 @@ public class MainMenuPanel extends JPanel{
         setLayout(new BorderLayout());
         top = new JPanel();
         center = new JPanel();
-        center.setLayout(new GridLayout(size, 2));
+        
         //initializes variables
         usernameLabel = new JLabel("Username: ");
         usernameField = new JTextField(20);
-        usernameField.setText("Default User");
+        usernameField.setText("User");
         
-        highScoreLabel = new JLabel("Highscores: ");
-      //  highScoreArea = new JTextArea(20,40);
+       // highScoreLabel = new JLabel("Highscores: ");
+        highScoreArea = new JTextArea(20,40);
         
         score = sc;
         
-        ArrayList<String> strings = score.getStringList();
-        ArrayList<Integer> ints = score.getIntList();
-        size = strings.size();
-        if(size < 20){
-            for(int i = 0; i < size; i++){
-             jstring[i] = new JLabel();
-             jnumber[i] = new JLabel();
-             jstring[i].setText("             " +strings.get(i));
-             jnumber[i].setText(valueOf(ints.get(i)));
-             center.add(jstring[i]);
-             center.add(jnumber[i]);
-            }
-        }else{
-            size = 20;
-            for(int i = 0; i < size; i++){
-                jstring[i] = new JLabel();
-                jnumber[i] = new JLabel();
-                jstring[i].setText("             " +strings.get(i));
-                jnumber[i].setText(valueOf(ints.get(i)));
-                center.add(jstring[i]);
-                center.add(jnumber[i]);
-            }
-        }
+        displayScores();
 
         //adds objects to Panel
         top.add(playButton);
         top.add(quitButton);
         top.add(usernameLabel);
         top.add(usernameField);
+        center.add(highScoreArea);
         add(top, BorderLayout.NORTH);
         add(center, BorderLayout.CENTER);
-        //this.add(highScoreLabel);
+        
     //    this.add(highScoreArea);
 //        highScoreArea.addLists();
     }
@@ -113,6 +92,17 @@ public class MainMenuPanel extends JPanel{
         return highScoreArea;
     }
     
-
-    
+    public void displayScores()
+    {
+        highScoreArea.setText(null);
+        
+        ArrayList<String> strings = score.getStringList();
+        ArrayList<Integer> ints = score.getIntList();
+        size = strings.size();
+        if(size <= 20){
+            for(int i = 0; i < size; i++){
+                highScoreArea.append(strings.get(i) + " " + ints.get(i) + "\n");
+            }
+        }
+    }  
 }
