@@ -31,8 +31,10 @@ public class MainMenuPanel extends JPanel{
     
     private JLabel highScoreLabel;
     private JTextArea highScoreArea;
+    
     private int size;
-    Scores score;
+    private Scores score;
+    private Font f1 = new Font("Arial", 2, 14);
     
     public MainMenuPanel(Scores sc){
         createButtons();
@@ -47,6 +49,7 @@ public class MainMenuPanel extends JPanel{
         
        // highScoreLabel = new JLabel("Highscores: ");
         highScoreArea = new JTextArea(20,40);
+        highScoreArea.setFont(f1);
         
         score = sc;
         
