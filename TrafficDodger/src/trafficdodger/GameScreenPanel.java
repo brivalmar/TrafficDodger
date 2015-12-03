@@ -49,6 +49,7 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     private boolean isPaused = true;
     private boolean collision = false;
     private boolean explosionMade = false;
+    private boolean gameOver = false;
 
     BufferedImage road;
 
@@ -77,10 +78,6 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         addKeyListener(this);
     }
 
-    private void gameOver() {
-
-    }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -97,7 +94,12 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         }
 
         if (isPaused) {
-            drawInst(g);
+            if (gameOver) {
+                gameOver(g);
+            }
+            else {
+                drawInst(g);
+            }
         }
         if (collision) {
             drawExplosion(g);
@@ -138,6 +140,16 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         g.setColor(Color.white);
         g.setFont(myFont);
         g.drawString("Press Space To Start/Pause", 75, 350);
+    }
+    
+    public void gameOver(Graphics g) {
+        Font myFont = new Font("Times New Roman", Font.BOLD, 60);
+
+        g.setColor(Color.white);
+        g.setFont(myFont);
+        g.drawString("Game Over!", 95, 225);
+        g.drawString("Your score is " + Integer.toString(player.getScore()), 20, 275);
+        g.drawString("Play again?  Y/N", 35, 450);
     }
     
     public void makeExplosion(Graphics g) {
@@ -202,8 +214,16 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
             }
         }
 
-        if (x == KeyEvent.VK_SPACE) {
+        if (x == KeyEvent.VK_SPACE && !gameOver) {
             pause();
+        }
+        
+        if (x == KeyEvent.VK_Y && gameOver) {
+            
+        }
+        
+        if (x == KeyEvent.VK_N && gameOver) {
+            
         }
     }
 
@@ -235,10 +255,11 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
                     if (carlist.get(i).gety() > 700) {
                         carlist.get(i).setstatefalse();
                         player.addscore();
-
+                    }
+                    if (player.getLives() == 0) {
+                        gameOver = true;
                     }
                 }
-
             }
             repaint();
         }

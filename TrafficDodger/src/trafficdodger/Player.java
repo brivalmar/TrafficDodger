@@ -42,7 +42,7 @@ public class Player extends Rectangle {
     
     void loadimage(){
         try{
-          image1 = ImageIO.read(new File("src/trafficdodger/images/playerCar.png"));
+            image1 = ImageIO.read(new File("src/trafficdodger/images/playerCar.png"));
         }
         
         catch(IOException e){
