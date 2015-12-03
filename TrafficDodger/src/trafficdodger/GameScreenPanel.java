@@ -41,6 +41,8 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     private BufferedImage tmpImg = new BufferedImage(200, 139, BufferedImage.TYPE_INT_ARGB);
 
     private int roadUsed = 1;
+    private int t1Timer = 2500;
+    private int t2Timer = 100;
 
     private int listsize;
     private Player player;
@@ -64,8 +66,8 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         
         init();
         listsize = 0;
-        t1 = new Timer(3000, this);
-        t2 = new Timer(100, this);
+        t1 = new Timer(t1Timer, this);
+        t2 = new Timer(t2Timer, this);
         roadTimer = new Timer(100, this);
     }
 
@@ -265,6 +267,18 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
                     if (carlist.get(i).gety() > 700) {
                         carlist.get(i).setstatefalse();
                         player.addscore();
+                        if (t2Timer > 10) {
+                            t2Timer = t2Timer - 3;
+                        }
+                        if (t1Timer > 2000) {
+                            t1Timer = t1Timer - 5;
+                        }
+                        t1.stop();
+                        t2.stop();
+                        t1 = new Timer(t1Timer, this);
+                        t2 = new Timer(t2Timer, this);
+                        t1.start();
+                        t2.start();
                     }
                     if (player.getLives() == 0) {
                         gameOver = true;
