@@ -47,7 +47,7 @@ public class MainMenuPanel extends JPanel{
         usernameField = new JTextField(20);
         usernameField.setText("User");
         
-       // highScoreLabel = new JLabel("Highscores: ");
+        highScoreLabel = new JLabel("Highscores: ");
         highScoreArea = new JTextArea(20,40);
         highScoreArea.setFont(f1);
         
@@ -60,6 +60,7 @@ public class MainMenuPanel extends JPanel{
         top.add(quitButton);
         top.add(usernameLabel);
         top.add(usernameField);
+        center.add(highScoreLabel);
         center.add(highScoreArea);
         add(top, BorderLayout.NORTH);
         add(center, BorderLayout.CENTER);
