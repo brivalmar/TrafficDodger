@@ -34,7 +34,7 @@ public class MainMenuPanel extends JPanel{
     private int size;
     Scores score;
     
-    public MainMenuPanel(){
+    public MainMenuPanel(Scores sc){
         createButtons();
         setLayout(new BorderLayout());
         top = new JPanel();
@@ -48,7 +48,7 @@ public class MainMenuPanel extends JPanel{
         highScoreLabel = new JLabel("Highscores: ");
       //  highScoreArea = new JTextArea(20,40);
         
-        score = new Scores();
+        score = sc;
         
         ArrayList<String> strings = score.getStringList();
         ArrayList<Integer> ints = score.getIntList();

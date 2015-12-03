@@ -45,6 +45,8 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     private int listsize;
     private Player player;
     private String name;
+    private Scores scores;
+    private JPanelController controller;
 
     private boolean isPaused = true;
     private boolean collision = false;
@@ -52,10 +54,12 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
 
     BufferedImage road;
 
-    GameScreenPanel(String nm) {
+    GameScreenPanel(String nm, Scores sc, JPanelController j) {
         super();
 
         name = nm;
+        scores = sc;
+        controller = j;
 
         setLayout(null);
 
@@ -78,7 +82,11 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     }
 
     private void gameOver() {
-
+        scores.writeToFile(name, player.getScore());
+        t1.stop();
+        t2.stop();
+        roadTimer.stop();
+        controller.switchToMain();
     }
 
     @Override
@@ -231,6 +239,10 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
                             pause();
                             collision = true;
                             player.decrementLife();
+                            if(player.getLives() == 0)
+                            {
+                                gameOver();
+                            }
                         }
                     if (carlist.get(i).gety() > 700) {
                         carlist.get(i).setstatefalse();

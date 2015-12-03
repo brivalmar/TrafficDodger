@@ -50,9 +50,7 @@ public class Scores {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-    
-        System.out.println(strings.toString());
-        System.out.println(ints.toString() + "\n");       
+          
         
         for(int i = 0; i < ints.size(); i++){
             
@@ -69,21 +67,20 @@ public class Scores {
                     ints.set(i, temp);
                     strings.set(i, name);
                 }
-                
-                System.out.println(strings.toString());
-                System.out.println(ints.toString() + "\n");
+
             }
                     
         }
 
     }
     
-    public void writeToFile(String userName, int score){
-        
-        try(BufferedWriter writing = new BufferedWriter(new FileWriter("listOfScores.txt"))){
-            
-            writing.append(userName +" "+score);
-            writing.close();
+    public void writeToFile(String userName, int score){                
+        try{
+            BufferedWriter w = new BufferedWriter(new FileWriter("listOfScores.txt"));
+            w.write(userName + " " + score);
+            w.newLine();
+            w.flush();
+            w.close();
             
         }catch(Exception e){
             System.out.println(e.getMessage());

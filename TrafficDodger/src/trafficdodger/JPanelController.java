@@ -18,13 +18,13 @@ public class JPanelController extends JPanel implements ActionListener{
     
     private MainMenuPanel mainMenu;
     private GameScreenPanel gameScreen;
-    private GameController controller;
+    private Scores scores;
     
     public JPanelController(){
+        scores = new Scores();
         //creates new Panels to show
-        mainMenu = new MainMenuPanel();
+        mainMenu = new MainMenuPanel(scores);
         
-       
         this.setLayout(new BorderLayout());
         
         //adds mainMenu Panel to JPanelController
@@ -41,10 +41,11 @@ public class JPanelController extends JPanel implements ActionListener{
         
         //decisions for button clicked
         if(e.getSource() == mainMenu.getPlayButton()){
-            mainMenu.setVisible(false);
-            controller = new GameController();
-            gameScreen = new GameScreenPanel(mainMenu.getPlayerName());
+            this.remove(mainMenu);
+            gameScreen = new GameScreenPanel(mainMenu.getPlayerName(), scores, this);
             this.add(gameScreen);
+            validate();
+            repaint();
         }
         
         if(e.getSource() == mainMenu.getQuitButton()){
@@ -53,6 +54,12 @@ public class JPanelController extends JPanel implements ActionListener{
         }
     }
     
-    
-    
+    public void switchToMain()
+    {
+       System.out.println("In Switch to Main");
+       this.remove(gameScreen);
+       this.add(mainMenu);
+       validate();
+       repaint();
+    }    
 }
