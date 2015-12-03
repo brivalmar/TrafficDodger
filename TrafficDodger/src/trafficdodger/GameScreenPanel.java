@@ -51,6 +51,7 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
     private boolean isPaused = true;
     private boolean collision = false;
     private boolean explosionMade = false;
+    private boolean gameOver = false;
 
     BufferedImage road;
 
@@ -88,7 +89,13 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         roadTimer.stop();
         controller.switchToMain();
     }
-
+    
+    public void reset(){
+        carlist = new ArrayList<>();
+        listsize = 0;
+        collision = false;
+    }
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -105,7 +112,12 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         }
 
         if (isPaused) {
-            drawInst(g);
+            if (gameOver) {
+                gameOver(g);
+            }
+            else {
+                drawInst(g);
+            }
         }
         if (collision) {
             drawExplosion(g);
@@ -148,6 +160,16 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         g.drawString("Press Space To Start/Pause", 75, 350);
     }
     
+    public void gameOver(Graphics g) {
+        Font myFont = new Font("Times New Roman", Font.BOLD, 60);
+
+        g.setColor(Color.white);
+        g.setFont(myFont);
+        g.drawString("Game Over!", 95, 225);
+        g.drawString("Your score is " + Integer.toString(player.getScore()), 20, 275);
+        g.drawString("Play again?  Y/N", 35, 450);
+    }
+    
     public void makeExplosion(Graphics g) {
         Graphics2D g2d = (Graphics2D) tmpImg.getGraphics();
         g2d.setComposite(AlphaComposite.SrcOver.derive(0.7f)); 
@@ -169,6 +191,10 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
                 roadTimer.stop();
                 isPaused = true;
             } else {
+                if (collision == true){
+                    reset();
+                    
+                }
                 t1.start();
                 t2.start();
                 roadTimer.start();
@@ -210,8 +236,16 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
             }
         }
 
-        if (x == KeyEvent.VK_SPACE) {
+        if (x == KeyEvent.VK_SPACE && !gameOver) {
             pause();
+        }
+        
+        if (x == KeyEvent.VK_Y && gameOver) {
+            gameOver();
+        }
+        
+        if (x == KeyEvent.VK_N && gameOver) {
+           controller.exitGame();
         }
     }
 
@@ -238,19 +272,16 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
                         {
                             pause();
                             collision = true;
-                            player.decrementLife();
-                            if(player.getLives() == 0)
-                            {
-                                gameOver();
-                            }
+                            player.decrementLife();                       
                         }
                     if (carlist.get(i).gety() > 700) {
                         carlist.get(i).setstatefalse();
                         player.addscore();
-
+                    }
+                    if (player.getLives() == 0) {
+                        gameOver = true;
                     }
                 }
-
             }
             repaint();
         }

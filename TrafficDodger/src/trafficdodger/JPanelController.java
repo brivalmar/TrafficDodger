@@ -41,15 +41,11 @@ public class JPanelController extends JPanel implements ActionListener{
         
         //decisions for button clicked
         if(e.getSource() == mainMenu.getPlayButton()){
-            this.remove(mainMenu);
-            gameScreen = new GameScreenPanel(mainMenu.getPlayerName(), scores, this);
-            this.add(gameScreen);
-            validate();
-            repaint();
+            switchToGame();
         }
         
         if(e.getSource() == mainMenu.getQuitButton()){
-            System.exit(0);
+            exitGame();
 
         }
     }
@@ -61,5 +57,19 @@ public class JPanelController extends JPanel implements ActionListener{
        this.add(mainMenu);
        validate();
        repaint();
-    }    
+    }
+    
+    public void switchToGame()
+    {
+        this.remove(mainMenu);
+        gameScreen = new GameScreenPanel(mainMenu.getPlayerName(), scores, this);
+        this.add(gameScreen);
+        validate();
+        repaint();
+    }
+    
+    public void exitGame()
+    {
+        System.exit(0);
+    }
 }
