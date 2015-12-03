@@ -53,21 +53,27 @@ public class MainMenuPanel extends JPanel{
         ArrayList<String> strings = score.getStringList();
         ArrayList<Integer> ints = score.getIntList();
         size = strings.size();
-        for(int i = 0; i < size; i++){
+        if(size < 20){
+            for(int i = 0; i < size; i++){
              jstring[i] = new JLabel();
              jnumber[i] = new JLabel();
              jstring[i].setText("             " +strings.get(i));
              jnumber[i].setText(valueOf(ints.get(i)));
              center.add(jstring[i]);
              center.add(jnumber[i]);
-          /*  highScoreArea.append(strings.get(i));
-            highScoreArea.append("               ");
-            highScoreArea.append(ints.get(i).toString() + "\n");*/
+            }
+        }else{
+            size = 20;
+            for(int i = 0; i < size; i++){
+                jstring[i] = new JLabel();
+                jnumber[i] = new JLabel();
+                jstring[i].setText("             " +strings.get(i));
+                jnumber[i].setText(valueOf(ints.get(i)));
+                center.add(jstring[i]);
+                center.add(jnumber[i]);
+            }
         }
-        
-        
 
-        
         //adds objects to Panel
         top.add(playButton);
         top.add(quitButton);

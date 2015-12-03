@@ -78,6 +78,12 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         addKeyListener(this);
     }
 
+    public void reset(){
+        carlist = new ArrayList<>();
+        listsize = 0;
+        collision = false;
+    }
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -173,6 +179,10 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
                 roadTimer.stop();
                 isPaused = true;
             } else {
+                if (collision == true){
+                    reset();
+                    
+                }
                 t1.start();
                 t2.start();
                 roadTimer.start();
