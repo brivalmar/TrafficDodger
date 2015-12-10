@@ -46,7 +46,6 @@ public class JPanelController extends JPanel implements ActionListener{
         
         if(e.getSource() == mainMenu.getQuitButton()){
             exitGame();
-
         }
     }
     
