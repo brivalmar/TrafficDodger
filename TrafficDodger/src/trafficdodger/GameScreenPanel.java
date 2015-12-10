@@ -286,11 +286,11 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
                             t1Timer = t1Timer - 50;
                         }
                    //     t1.stop();
-                        t2.stop();
+                       // t2.stop();
                         t1.setDelay(t1Timer);
                         t2.setDelay(t2Timer);
                     //    t1.start();
-                        t2.start();
+                       // t2.start();
                     }
                     if (player.getLives() == 0) {
                         gameOver = true;
