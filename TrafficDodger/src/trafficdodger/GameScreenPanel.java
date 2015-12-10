@@ -247,6 +247,7 @@ public class GameScreenPanel extends JPanel implements KeyListener, ActionListen
         }
         
         if (x == KeyEvent.VK_N && gameOver) {
+           scores.writeToFile(name, player.getScore());
            controller.exitGame();
         }
     }
