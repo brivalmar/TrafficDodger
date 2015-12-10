@@ -99,9 +99,11 @@ public class MainMenuPanel extends JPanel{
     public void displayScores()
     {
         highScoreArea.setText(null);
-        
-        ArrayList<String> strings = score.getStringList();
-        ArrayList<Integer> ints = score.getIntList();
+        score.readAndSort();
+        ArrayList<String> strings = new ArrayList();
+        strings = score.getStringList();
+         ArrayList<Integer> ints = new ArrayList();
+        ints = score.getIntList();
         size = strings.size();
         if(size <= 20){
             for(int i = 0; i < size; i++){

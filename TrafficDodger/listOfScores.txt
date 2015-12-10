@@ -2,5 +2,8 @@ User 500
 Matt 300
 Jim 300
 John 300
-Ranger 0
 Jimmy 100
+Ranger 0
+User 0
+User 0
+User 0
